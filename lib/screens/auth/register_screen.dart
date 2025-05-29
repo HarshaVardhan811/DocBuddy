@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newproj/widgets/text_field_widget.dart';
+import '../../widgets/text_field_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widgets/customfilled_button_widget.dart';
+import '../../widgets/customfilled_button_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -16,22 +16,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isPasswordHidden = true;
 
   Future<void> registerUser() async {
-    final name = nameController.text;
-    final email = emailController.text;
+    final name = nameController.text.trim();
+    final email = emailController.text.trim();
     final password = passwordController.text;
 
-    if (name.isNotEmpty && email.isNotEmpty && password.length >= 6) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('registeredEmail', email);
-      await prefs.setString('registeredPassword', password);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Registration successful")));
-      Navigator.pop(context); // Go back to login screen
-    } else {
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+
+    if (name.isEmpty || email.isEmpty || password.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Please fill all fields properly")));
+        SnackBar(content: Text("Please fill all fields properly")),
+      );
+      return;
     }
+
+    if (!emailRegex.hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter a valid email address")),
+      );
+      return;
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('registeredEmail', email);
+    await prefs.setString('registeredPassword', password);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Registration successful")),
+    );
+
+    Navigator.pop(context);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,22 +63,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Icon(Icons.local_hospital, size: 200, color: Colors.blue),
                 ),
                 Center(
-                  child: Text("Register",
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  child: Text("Doc Buddy",
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 CustomTextField(
                   controller: nameController,
                   label: 'Name',
                   hintText: "Enter Your Name",
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 CustomTextField(
                   controller: emailController,
                   label: 'Email',
                   hintText: "Enter Your Email",
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 CustomTextField(
                   controller: passwordController,
                   label: 'Password',
