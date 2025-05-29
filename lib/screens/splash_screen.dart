@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Icon(Icons.local_hospital, size: 100, color: Colors.white),
             SizedBox(height: 20),
-            Text('Your Doctor', style: TextStyle(color: Colors.white, fontSize: 24)),
+            Text('Doc Buddy', style: TextStyle(color: Colors.white, fontSize: 24)),
           ],
         ),
       ),
