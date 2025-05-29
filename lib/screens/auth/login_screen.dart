@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widgets/customfilled_button_widget.dart';
-import '../widgets/text_field_widget.dart';
+import '../../widgets/customfilled_button_widget.dart';
+import '../../widgets/text_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -42,7 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
             // Spacer(),
             Icon(Icons.local_hospital, size: 200, color: Colors.blue),
 
-            Text("Your Doctor", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            Text("Doc Buddy", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
 
             CustomTextField(
               controller: emailController,

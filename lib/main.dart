@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:newproj/screens/home_screen.dart';
-import 'package:newproj/screens/login_screen.dart';
-import 'package:newproj/screens/register_screen.dart';
+import 'package:newproj/screens/home/home_screen.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/register_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart';
-// import 'screens/login_screen.dart';
-// import 'screens/home_screen.dart';
+
+
 import 'providers/user_provider.dart';
 
 void main() {
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your Doctor',
+      debugShowCheckedModeBanner: false,
+      title: 'Doc Buddy',
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
       routes: {
